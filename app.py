@@ -97,6 +97,38 @@ st.title("🏢 Westbridge AI Assistant")
 st.caption("Conversational ops, powered by Llama 3.3 70B on Groq")
 
 
+# ─── Source Data Viewer (top of page so it stays reachable) ────────────
+with st.expander("📊 View source data — what Barbara is reading from", expanded=False):
+    st.caption(
+        "All data is **mocked** for this demo. Day 1 of work, the data source flips "
+        "from these JSON files to live Rent Manager + QuickBooks APIs — same code, "
+        "same tools, same agent. Use this view to verify Barbara's answers against "
+        "ground truth."
+    )
+
+    DATA_FILES = [
+        ("Properties (5)", "properties"),
+        ("Tenants (12)", "tenants"),
+        ("Leases (12)", "leases"),
+        ("Charges (17)", "charges"),
+        ("Invoices (9)", "invoices"),
+        ("Bank Accounts (7)", "bank_accounts"),
+        ("Maintenance (5)", "service_issues"),
+    ]
+
+    tabs = st.tabs([label for label, _ in DATA_FILES])
+    data_dir = Path(__file__).parent / "mock_data"
+    for tab, (_, fname) in zip(tabs, DATA_FILES):
+        with tab:
+            data_path = data_dir / f"{fname}.json"
+            with open(data_path, encoding="utf-8") as f:
+                data = json.load(f)
+            st.caption(f"`mock_data/{fname}.json` · {len(data)} records")
+            st.dataframe(data, use_container_width=True, hide_index=True)
+
+st.divider()
+
+
 # ─── Session state ──────────────────────────────────────────────────────
 # `messages` is the LLM-facing conversation history (system + user + assistant + tool).
 # `display_log` is what we render in the UI — user messages, assistant text, and tool-call tags.
@@ -219,34 +251,3 @@ typed = st.chat_input("Ask Barbara anything — try the prompts in the sidebar..
 user_input = pending or typed
 if user_input:
     run_agent(user_input)
-
-
-# ─── Source Data Viewer ─────────────────────────────────────────────────
-st.divider()
-with st.expander("📊 View source data — what Barbara is reading from", expanded=False):
-    st.caption(
-        "All data is **mocked** for this demo. Day 1 of work, the data source flips "
-        "from these JSON files to live Rent Manager + QuickBooks APIs — same code, "
-        "same tools, same agent. Use this view to verify Barbara's answers against "
-        "ground truth."
-    )
-
-    DATA_FILES = [
-        ("Properties (5)", "properties"),
-        ("Tenants (12)", "tenants"),
-        ("Leases (12)", "leases"),
-        ("Charges (17)", "charges"),
-        ("Invoices (9)", "invoices"),
-        ("Bank Accounts (7)", "bank_accounts"),
-        ("Maintenance (5)", "service_issues"),
-    ]
-
-    tabs = st.tabs([label for label, _ in DATA_FILES])
-    data_dir = Path(__file__).parent / "mock_data"
-    for tab, (_, fname) in zip(tabs, DATA_FILES):
-        with tab:
-            data_path = data_dir / f"{fname}.json"
-            with open(data_path, encoding="utf-8") as f:
-                data = json.load(f)
-            st.caption(f"`mock_data/{fname}.json` · {len(data)} records")
-            st.dataframe(data, use_container_width=True, hide_index=True)
