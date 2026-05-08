@@ -210,14 +210,23 @@ def run_agent(user_message: str) -> None:
                 st.markdown(final_text)
             return
 
-        # Execute each tool call and append results
+        # Group identical tool calls (Llama 3.3 occasionally emits duplicates).
+        # Execute each unique (name, arguments) pair ONCE and re-use its result
+        # for every duplicate tool_call_id the model issued.
+        groups: dict[tuple[str, str], list] = {}
         for tc in msg.tool_calls:
-            name = tc.function.name
+            key = (tc.function.name, tc.function.arguments or "{}")
+            groups.setdefault(key, []).append(tc)
+
+        for (name, args_json), tcs in groups.items():
             try:
-                args = json.loads(tc.function.arguments or "{}")
+                args = json.loads(args_json)
             except json.JSONDecodeError:
                 args = {}
             args_summary = ", ".join(f"{k}={v!r}" for k, v in args.items())
+            if len(tcs) > 1:
+                args_summary += f"  ↺ collapsed {len(tcs)} duplicate calls"
+
             st.session_state.display_log.append({
                 "kind": "tool_call",
                 "name": name,
@@ -229,13 +238,19 @@ def run_agent(user_message: str) -> None:
                     unsafe_allow_html=True,
                 )
 
+            # Execute once per unique call
             result = execute_tool(name, args)
-            st.session_state.messages.append({
-                "role": "tool",
-                "tool_call_id": tc.id,
-                "name": name,
-                "content": json.dumps(result, default=str),
-            })
+            result_json = json.dumps(result, default=str)
+
+            # The OpenAI/Groq schema requires one tool result per tool_call_id,
+            # so we append the same result under every duplicate id.
+            for tc in tcs:
+                st.session_state.messages.append({
+                    "role": "tool",
+                    "tool_call_id": tc.id,
+                    "name": name,
+                    "content": result_json,
+                })
 
     # Hit the iteration cap
     msg_text = "⚠️ Reached max tool iterations without final answer."
