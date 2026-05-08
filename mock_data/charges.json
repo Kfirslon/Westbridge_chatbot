@@ -1,0 +1,19 @@
+[
+  { "Id": 5001, "TenantId": 101, "Date": "2026-05-01", "Type": "Rent", "Amount": 2450.00, "Notes": "May 2026 rent" },
+  { "Id": 5002, "TenantId": 101, "Date": "2026-04-01", "Type": "Rent", "Amount": 2450.00, "Notes": "April 2026 rent" },
+  { "Id": 5003, "TenantId": 101, "Date": "2026-03-01", "Type": "Rent", "Amount": 2450.00, "Notes": "March 2026 rent" },
+  { "Id": 5004, "TenantId": 101, "Date": "2026-02-15", "Type": "Adjustment", "Amount": -1200.00, "Notes": "Litigation offset (per legal directive)" },
+  { "Id": 5005, "TenantId": 101, "Date": "2025-12-01", "Type": "Adjustment", "Amount": -2450.00, "Notes": "Withheld rent — escrow per court" },
+  { "Id": 5006, "TenantId": 102, "Date": "2026-05-01", "Type": "Rent", "Amount": 2700.00, "Notes": "May 2026 rent" },
+  { "Id": 5007, "TenantId": 103, "Date": "2026-05-01", "Type": "Rent", "Amount": 1850.00, "Notes": "May 2026 rent — PAST DUE" },
+  { "Id": 5008, "TenantId": 104, "Date": "2026-05-01", "Type": "Rent", "Amount": 3850.00, "Notes": "May 2026 rent" },
+  { "Id": 5009, "TenantId": 105, "Date": "2026-05-01", "Type": "Rent", "Amount": 3600.00, "Notes": "May 2026 rent" },
+  { "Id": 5010, "TenantId": 106, "Date": "2026-05-01", "Type": "Rent", "Amount": 2700.00, "Notes": "May 2026 rent" },
+  { "Id": 5011, "TenantId": 106, "Date": "2026-04-01", "Type": "Rent", "Amount": 2700.00, "Notes": "April 2026 rent" },
+  { "Id": 5012, "TenantId": 107, "Date": "2026-05-01", "Type": "Rent", "Amount": 5400.00, "Notes": "May 2026 rent" },
+  { "Id": 5013, "TenantId": 108, "Date": "2026-05-01", "Type": "Rent", "Amount": 3200.00, "Notes": "May 2026 rent" },
+  { "Id": 5014, "TenantId": 109, "Date": "2026-05-01", "Type": "Rent", "Amount": 2950.00, "Notes": "May 2026 rent" },
+  { "Id": 5015, "TenantId": 110, "Date": "2026-05-01", "Type": "Rent", "Amount": 2800.00, "Notes": "May 2026 rent — PAST DUE" },
+  { "Id": 5016, "TenantId": 111, "Date": "2026-05-01", "Type": "Rent", "Amount": 2750.00, "Notes": "May 2026 rent" },
+  { "Id": 5017, "TenantId": 112, "Date": "2026-05-01", "Type": "Rent", "Amount": 2200.00, "Notes": "May 2026 rent" }
+]

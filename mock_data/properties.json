@@ -1,0 +1,67 @@
+[
+  {
+    "Id": 1,
+    "Name": "Riverdale Heights",
+    "Address": "5640 Riverdale Ave, Bronx, NY 10471",
+    "UnitCount": 47,
+    "OccupiedUnits": 43,
+    "OccupancyPct": 12000,
+    "OwnerLLC": "Westbridge Riverdale Heights LLC",
+    "PropertyType": "Multifamily Residential",
+    "YearBuilt": 1962,
+    "TaxAbatementType": null,
+    "Notes": "Established asset. Stable cash flow."
+  },
+  {
+    "Id": 2,
+    "Name": "165 East",
+    "Address": "165 E 165th St, Bronx, NY 10456",
+    "UnitCount": 99,
+    "OccupiedUnits": 88,
+    "OccupancyPct": 88.9,
+    "OwnerLLC": "Westbridge 165 LLC",
+    "PropertyType": "Multifamily Residential",
+    "YearBuilt": 2024,
+    "TaxAbatementType": "421a (20-year)",
+    "Notes": "Lease-up phase. Tax abatement runs through 2044."
+  },
+  {
+    "Id": 3,
+    "Name": "McCarren Park",
+    "Address": "412 Driggs Ave, Brooklyn, NY 11211",
+    "UnitCount": 28,
+    "OccupiedUnits": 27,
+    "OccupancyPct": 96.4,
+    "OwnerLLC": "Westbridge Williamsburg McCarren LLC",
+    "PropertyType": "Multifamily Residential",
+    "YearBuilt": 2022,
+    "TaxAbatementType": "421a (20-year)",
+    "Notes": "Premium Williamsburg location. Strong rent growth."
+  },
+  {
+    "Id": 4,
+    "Name": "230 Wash Heights",
+    "Address": "230 Audubon Ave, New York, NY 10033",
+    "UnitCount": 60,
+    "OccupiedUnits": 56,
+    "OccupancyPct": 93.3,
+    "OwnerLLC": "Westbridge WH 230 LLC",
+    "PropertyType": "Multifamily Residential",
+    "YearBuilt": 2023,
+    "TaxAbatementType": "421a (20-year)",
+    "Notes": "Near Yeshiva University. Active development pipeline nearby."
+  },
+  {
+    "Id": 5,
+    "Name": "Westbridge HQ",
+    "Address": "5676 Riverdale Ave Suite 203, Bronx, NY 10471",
+    "UnitCount": 0,
+    "OccupiedUnits": 0,
+    "OccupancyPct": null,
+    "OwnerLLC": "Westbridge Holdings LLC",
+    "PropertyType": "Office (Self-Use)",
+    "YearBuilt": 1985,
+    "TaxAbatementType": null,
+    "Notes": "Corporate office. Not income-producing."
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "Id": 7001,
+    "AccountName": "Westbridge Riverdale Heights LLC — Operating",
+    "LLC": "Westbridge Riverdale Heights LLC",
+    "PropertyId": 1,
+    "Bank": "Chase Business",
+    "AccountNumberMasked": "****6431",
+    "Balance": 184250.00,
+    "Type": "Operating"
+  },
+  {
+    "Id": 7002,
+    "AccountName": "Westbridge Riverdale Heights LLC — Security Deposits",
+    "LLC": "Westbridge Riverdale Heights LLC",
+    "PropertyId": 1,
+    "Bank": "Chase Business",
+    "AccountNumberMasked": "****6452",
+    "Balance": 62300.00,
+    "Type": "Escrow"
+  },
+  {
+    "Id": 7003,
+    "AccountName": "Westbridge 165 LLC — Operating",
+    "LLC": "Westbridge 165 LLC",
+    "PropertyId": 2,
+    "Bank": "Signature Bank",
+    "AccountNumberMasked": "****8112",
+    "Balance": 412800.00,
+    "Type": "Operating"
+  },
+  {
+    "Id": 7004,
+    "AccountName": "Westbridge 165 LLC — Construction Reserve",
+    "LLC": "Westbridge 165 LLC",
+    "PropertyId": 2,
+    "Bank": "Signature Bank",
+    "AccountNumberMasked": "****8133",
+    "Balance": 1240000.00,
+    "Type": "Reserve"
+  },
+  {
+    "Id": 7005,
+    "AccountName": "Westbridge Williamsburg McCarren LLC — Operating",
+    "LLC": "Westbridge Williamsburg McCarren LLC",
+    "PropertyId": 3,
+    "Bank": "Chase Business",
+    "AccountNumberMasked": "****6789",
+    "Balance": 96400.00,
+    "Type": "Operating"
+  },
+  {
+    "Id": 7006,
+    "AccountName": "Westbridge WH 230 LLC — Operating",
+    "LLC": "Westbridge WH 230 LLC",
+    "PropertyId": 4,
+    "Bank": "TD Commercial",
+    "AccountNumberMasked": "****3287",
+    "Balance": 218500.00,
+    "Type": "Operating"
+  },
+  {
+    "Id": 7007,
+    "AccountName": "Westbridge Holdings LLC — Master Operating",
+    "LLC": "Westbridge Holdings LLC",
+    "PropertyId": 5,
+    "Bank": "Chase Business",
+    "AccountNumberMasked": "****0001",
+    "Balance": 78250.00,
+    "Type": "Operating"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "Id": 9001,
+    "PropertyId": 1,
+    "Unit": "3B",
+    "TenantId": 101,
+    "OpenDate": "2026-04-22",
+    "Status": "Open",
+    "Priority": "Medium",
+    "Category": "Plumbing",
+    "Description": "Kitchen sink slow drain"
+  },
+  {
+    "Id": 9002,
+    "PropertyId": 1,
+    "Unit": "5A",
+    "TenantId": 102,
+    "OpenDate": "2026-04-30",
+    "Status": "Resolved",
+    "Priority": "High",
+    "Category": "Plumbing",
+    "Description": "Bathroom leak from upstairs unit",
+    "ResolvedDate": "2026-05-02"
+  },
+  {
+    "Id": 9003,
+    "PropertyId": 2,
+    "Unit": "12F",
+    "TenantId": 104,
+    "OpenDate": "2026-05-05",
+    "Status": "Open",
+    "Priority": "Low",
+    "Category": "Appliance",
+    "Description": "Dishwasher not draining"
+  },
+  {
+    "Id": 9004,
+    "PropertyId": 4,
+    "Unit": "3F",
+    "TenantId": 110,
+    "OpenDate": "2026-05-01",
+    "Status": "Open",
+    "Priority": "High",
+    "Category": "HVAC",
+    "Description": "No heat in bedroom — second report"
+  },
+  {
+    "Id": 9005,
+    "PropertyId": 3,
+    "Unit": "Common",
+    "TenantId": null,
+    "OpenDate": "2026-05-06",
+    "Status": "Open",
+    "Priority": "Medium",
+    "Category": "Common Area",
+    "Description": "Lobby intercom system intermittent failures"
+  }
+]
