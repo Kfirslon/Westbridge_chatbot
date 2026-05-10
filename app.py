@@ -12,9 +12,25 @@ from pathlib import Path
 
 import streamlit as st
 from dotenv import load_dotenv
-from groq import Groq
+from groq import BadRequestError, Groq
 
 from tools import TOOL_SCHEMAS, execute_tool
+
+CONFIRMATION_WORDS = (
+    "yes", "yeah", "yep", "confirm", "confirmed", "proceed",
+    "ok", "okay", "approve", "approved", "go ahead", "do it",
+    "execute", "send it", "make it",
+)
+
+
+def user_has_confirmed(messages: list[dict]) -> bool:
+    """True iff the most recent user turn looks like an explicit confirmation
+    AND there's been at least one prior user turn (the original ask)."""
+    user_msgs = [m for m in messages if m.get("role") == "user"]
+    if len(user_msgs) < 2:
+        return False
+    last = (user_msgs[-1].get("content") or "").lower().strip()
+    return any(w in last for w in CONFIRMATION_WORDS)
 
 load_dotenv()
 
@@ -170,19 +186,37 @@ def run_agent(user_message: str) -> None:
         st.markdown(user_message)
 
     for _ in range(MAX_TOOL_ITERATIONS):
-        try:
-            response = client.chat.completions.create(
-                model=GROQ_MODEL,
-                messages=st.session_state.messages,
-                tools=TOOL_SCHEMAS,
-                tool_choice="auto",
-                temperature=0.2,
-            )
-        except Exception as e:
-            err = f"⚠️ Groq API error: {type(e).__name__}: {e}"
-            st.session_state.display_log.append({"kind": "assistant", "content": err})
-            with st.chat_message("assistant"):
-                st.error(err)
+        # Try once; smaller models occasionally emit malformed tool args
+        # that Groq rejects with 400. Retry transparently before failing.
+        response = None
+        for attempt in range(2):
+            try:
+                response = client.chat.completions.create(
+                    model=GROQ_MODEL,
+                    messages=st.session_state.messages,
+                    tools=TOOL_SCHEMAS,
+                    tool_choice="auto",
+                    temperature=0.2,
+                )
+                break
+            except BadRequestError:
+                if attempt == 0:
+                    continue
+                err = (
+                    "⚠️ Couldn't process that one — the model misformatted a tool "
+                    "call. Try rephrasing, or ask a different question."
+                )
+                st.session_state.display_log.append({"kind": "assistant", "content": err})
+                with st.chat_message("assistant"):
+                    st.warning(err)
+                return
+            except Exception as e:
+                err = f"⚠️ Groq API error: {type(e).__name__}: {e}"
+                st.session_state.display_log.append({"kind": "assistant", "content": err})
+                with st.chat_message("assistant"):
+                    st.error(err)
+                return
+        if response is None:
             return
 
         msg = response.choices[0].message
@@ -243,8 +277,24 @@ def run_agent(user_message: str) -> None:
                     unsafe_allow_html=True,
                 )
 
-            # Execute once per unique call
-            result = execute_tool(name, args)
+            # Execute once per unique call.
+            # CRITICAL SAFETY GUARD: execute_payment can ONLY run if the user
+            # has explicitly confirmed in a SEPARATE turn from the original
+            # request. The model is told this in the system prompt, but smaller
+            # models can ignore the instruction — this is the hard backstop.
+            if name == "execute_payment" and not user_has_confirmed(st.session_state.messages):
+                result = {
+                    "blocked": True,
+                    "error": (
+                        "execute_payment is BLOCKED. The user has not confirmed "
+                        "this draft. You must reply to the user with the draft "
+                        "details and ASK them to type 'yes' or 'confirm'. "
+                        "Only after they reply with confirmation may you call "
+                        "execute_payment in a new turn."
+                    ),
+                }
+            else:
+                result = execute_tool(name, args)
             result_json = json.dumps(result, default=str)
 
             # The OpenAI/Groq schema requires one tool result per tool_call_id,
