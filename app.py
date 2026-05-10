@@ -223,7 +223,12 @@ def run_agent(user_message: str) -> None:
                 args = json.loads(args_json)
             except json.JSONDecodeError:
                 args = {}
-            args_summary = ", ".join(f"{k}={v!r}" for k, v in args.items())
+            # Some smaller models return JSON `null` or non-object values for
+            # tools with all-optional parameters. Normalize to empty dict so
+            # both `.items()` (UI display) and `**args` (tool dispatch) work.
+            if not isinstance(args, dict):
+                args = {}
+            args_summary = ", ".join(f"{k}={v!r}" for k, v in args.items()) or "no args"
             if len(tcs) > 1:
                 args_summary += f"  ↺ collapsed {len(tcs)} duplicate calls"
 
